@@ -1,112 +1,50 @@
 # FontDrawer
 
-FontDrawer 是一個基於 HTML5 Canvas 的字型繪製工具，允許使用者自由繪製字型並生成 OTF 字型檔案。此工具有繁體中文與日文兩個版本，並提供自動化功能以簡化手寫字型的生成過程。
+> !IMPORTANT
+> Original credits to: [@buttaiwan](https://x.com/buttaiwan)
+> This is a version of FontDrawer that I modified to suit my needs.
 
-## 功能特性
+FontDrawer is an HTML5 Canvas-based font drawing tool that allows users to freely draw fonts and generate OTF font files.
 
-- **自由繪製字型**：使用 Canvas 在網頁上自由繪製字型。
-- **字型生成**：支援生成 OTF 格式的字型檔案。
-- **多語言支援**：提供繁體中文（`index.html`）與日文（`ja.html`）版本。
-- **縮放字框**：可調整字型的大小和比例。
-- **筆壓模擬**：即使設備不支援筆壓，也能模擬筆壓效果。
+## Features
+- **Freehand Font Drawing**: Freely draw fonts on a webpage using Canvas.
+- **Font Generation**: Supports generating font files in the OTF format.
+- **Scalable Character Box**: Adjustable font size and proportions.
+- **Pen Pressure Simulation**: Simulates pen pressure effects even if your device does not support it.
 
-## 版本紀錄
+## Changelog
+Please see the [Changelog](Changelog.md).
 
-請見[版本紀錄](ChangeLog.md)。
-
-## 技術細節
-
-- **主要技術**：
+## Technical Details
+- **Core Technologies**:
   - HTML5 Canvas
   - JavaScript
-  - IndexedDB 用於儲存字型資料
-  - [potrace.js](https://github.com/kilobtye/potrace) （GPL 2.0授權）用於將繪製的圖像轉換為 SVG。
-  - [opentype.js](https://github.com/opentypejs/opentype.js) （MIT授權）用於生成 OTF 字型檔案。
+  - IndexedDB for storing font data
+  - [potrace.js](https://github.com/kilobtye/potrace) (GPL 2.0 License) for converting drawn images to SVG.
+  - [opentype.js](https://github.com/opentypejs/opentype.js) (MIT License) for generating OTF font files.
 
-- **檔案結構**：
-  - `fontdrawer.js`：主要的字型繪製和生成邏輯。
-  - `index.html`：繁體中文界面。
-  - `ja.html`：日文界面。
-  - `glist/`：用於產生字表的工具。
+- **File Structure**:
+  - `fontdrawer.js`: The main font drawing and generation logic.
+  - `ja.html`: Japanese interface.
+  - `glist/`: Tools for generating character lists.
 
-## 注意事項
+## Notes
 
-- **字型權利**：
-  - 使用者生成的字型檔案的所有權屬於使用者，可自由公開或商業使用。並考慮斗內一下(笑)
+- **Font Rights**:
+  - The ownership of the generated font files belongs to the user, and they can be freely published or used commercially. Also, please consider making a donation (laughs).
 
-- **技術限制**：
-  - 生成的字型檔案可能不完全符合 CID 格式，部分 Adobe 應用可能無法正確識別為 CJK 字型。
+- **Technical Limitations**:
+  - The generated font files might not fully conform to the CID format, and some Adobe applications may not correctly recognize them as CJK fonts.
 
-- **建議**：
-  - 定期備份未完成的字型檔案，以防資料遺失。
+- **Recommendations**:
+  - Regularly back up your incomplete font files to prevent data loss.
 
-- **原始碼開源授權**：
-  - 本專案程式碼開源授權，但由於引用之專案授權條款不同，請自行評估引用時須遵守之各授權規範。並請勿侵害以下商標等權益：
-    - 網站名稱的「字嗨」為在台灣正式註冊的商標。
-    - 產出之字型檔，VendorID所填入的「ZIHI」值，為本人於微軟註冊的字型廠商代碼。
+- **Open Source License for Source Code**:
+  - The source code for this project is open-source, but since the referenced projects have different license terms, please evaluate and comply with the respective licensing regulations when using them.
 
-## 貢獻者
-
-- **開發者**：[@buttaiwan](https://x.com/buttaiwan)
-- **感謝**：
+## Contributors
+- **Fork**: [@sohiearth](https://github.com/sohiearth)
+- **Original Developer**: [@buttaiwan](https://x.com/buttaiwan), **Repo**: [writemyfont](https://github.com/ButTaiwan/writemyfont)
+- **Acknowledgments**:
   - [potrace.js](https://github.com/kilobtye/potrace)
   - [opentype.js](https://github.com/opentypejs/opentype.js)
-
-## 斗內
-
-若您覺得此工具能幫助到您，麻煩斗內一下吧～
-
-信用卡（含國際信用卡）、超商條碼、超商代收，請 [點這裡](https://p.ecpay.com.tw/930AED7) 。
-
-# 日本語版説明
-
-FontDrawer は、HTML5 Canvas を使用したフォント作成ツールで、ユーザーが自由にフォントを描画し、OTF フォーマットのフォントファイルを生成することができます。このツールは繁体字中国語と日本語の2つのバージョンを提供し、手書きフォントの生成プロセスを簡素化するための自動化機能を備えています。
-
-## 特徴
-
-- **自由なフォント描画**：Canvas 上で自由にフォントを描画できます。
-- **フォント生成**：OTF フォーマットのフォントファイルを生成可能。
-- **多言語対応**：繁体字中国語（`index.html`）と日本語（`ja.html`）のバージョンを提供。
-- **文字枠の拡大縮小**：フォントサイズや比率を調整可能。
-- **筆圧の模擬**：筆圧対応していないデバイスでも筆圧描画を模擬します。
-
-## 更新履歴
-
-詳しくは[更新履歴](ChangeLog.md)ページ。
-
-## 技術詳細
-
-- **主な技術**：
-  - HTML5 Canvas
-  - JavaScript
-  - IndexedDB を使用してフォントデータを保存
-  - [potrace.js](https://github.com/kilobtye/potrace) （GPL 2.0ライセンス）を使用して描画した画像を SVG に変換。
-  - [opentype.js](https://github.com/opentypejs/opentype.js) （MITライセンス）を使用して OTF フォントファイルを生成。
-
-- **ファイル構成**：
-  - `fontdrawer.js`：フォント描画と生成の主要なロジック。
-  - `index.html`：繁体字中国語インターフェース。
-  - `ja.html`：日本語インターフェース。
-  - `glist/`：文字表を生成するためのツール。
-
-## 注意事項
-
-- **フォントの権利**：
-  - ユーザーが生成したフォントファイルのすべての権利はユーザーに帰属します。公開や商用利用も自由に行えます。もし気に入っていただけたら、寄付をお願いします（笑）。
-
-- **技術的制限**：
-  - 生成されたフォントファイルは CID フォーマットに完全には準拠していないため、一部の Adobe アプリケーションでは CJK フォントとして正しく認識されない可能性があります。
-
-- **推奨事項**：
-  - 未完成のフォントファイルは定期的にバックアップを行うことを推奨します。
-
-- **オープンソースライセンス**：
-  - 本プロジェクトのコードはオープンソースライセンスで公開されていますが、引用されたプロジェクトのライセンス条項が異なるため、引用時には各ライセンス規約を遵守してください。また、以下の商標権などを侵害しないようご注意ください：
-    - ウェブサイト名「字嗨」は台湾で正式に登録された商標です。
-    - 生成されたフォントファイルの VendorID に入力される「ZIHI」値は、Microsoft に登録された私個人のフォントベンダーコードです。
-
-## 寄付
-
-もしこのツールが役に立ったと思われたら、ぜひ寄付をお願いします！
-
-[PayPal](https://www.paypal.com/paypalme/buttaiwan) または [台湾ドル建てのクレジット決済](https://p.ecpay.com.tw/930AED7) が可能です。

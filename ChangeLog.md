@@ -1,39 +1,39 @@
-# 版本紀錄／更新履歴
+# Version history / 履歴
 
 ## 0.594 - 2025/9/11
 
-- 若使用者手動新增自訂的全形字元，則該文字不自動產生全形字符。<br>
+- If the user manually adds custom full-width characters, those characters will no longer have full-width glyphs generated automatically.<br>
   ユーザーが手動で追加した全角文字は自動的に全角グリフを生成しません。
--（僅日文版）新增括號類的直排字符（不知道為什麼多數環境不照UAX#50定義Tr旋轉）。<br>
- （日本語版のみ）括弧類の縦組みグリフを追加（多くの環境でUAX#50のTr定義通りに回転しない理由は不明）
+- (Japanese version only) Added vertical-layout bracket characters (the reason most environments do not rotate them according to UAX#50 Tr is unclear).<br>
+  （日本語版のみ）括弧類の縦組みグリフを追加（多くの環境でUAX#50のTr定義通りに回転しない理由は不明）
 
 ---
 
 ## 0.59 - 2025/8/3
 
-- 增加背景格線選項。稍微降低歐文參考線位置。<br>
+- Added background grid options and slightly lowered the Latin reference line position.<br>
   背景グリッドの選択肢を追加。欧文の参考線位置を少し下げました。
-- 解決 iOS Safari 按鈕點兩下容易不小心放大視窗的問題。<br>
+- Fixed the issue where double-tapping buttons in iOS Safari could accidentally zoom the viewport.<br>
   iOS Safari でボタンを2回タップすると画面が拡大されてしまう問題を修正。
 
 ## 0.58 - 2025/8/3
 
-- 轉外框改為延遲執行，減少畫布操作時的延遲。（=解決iOS的斷水問題）<br>
+- Changed outline conversion to a delayed execution flow to reduce canvas interaction lag (= fixed the iOS paint-stalling issue).<br>
   アウトライン変換を遅延実行に変更し、キャンバス操作時の遅延を軽減。（=iOSの描画中断問題を解決）
-- 增加更增強的筆壓敏感度。<br>
+- Added a stronger pressure sensitivity response.<br>
   さらに新しい筆圧感度を追加。
-- 減輕觸控筆下筆時容易產生圓球以及直線牽絲的問題。<br>
+- Reduced the tendency for circular dots and line trailing at the beginning of strokes with a stylus.<br>
   タッチペンで描画開始時に発生しやすい円形の点や直線の糸引き問題を軽減しました。
-- 全形字元改為採用原始位置。<br>
+- Switched full-width glyphs to use the original position values.<br>
   全角グリフの位置をオリジナル値に変更。
 
 ---
 
 ## 0.57 - 2025/7/25
 
-- 類似 Procreate 的雙指快速碰觸復原功能。<br>
+- Added a Procreate-like two-finger quick-tap undo feature.<br>
   Procreate のような2本指でのタップによる復元機能。
-- 修復筆壓敏感度對於 Apple Pencil 過輕筆畫可能無法正常作畫的問題。<br>
+- Fixed the issue where pressure sensitivity could fail for overly light strokes with Apple Pencil.<br>
   Apple Pencil の筆圧が軽すぎる場合に描画が正常に行われない問題を修正しました。
 
 ---

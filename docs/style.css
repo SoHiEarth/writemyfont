@@ -1,0 +1,527 @@
+:root {
+	--font-color: #000;
+	--font-color-light: #aaa;
+	--background-color: #fff;
+	--background-color-light: #eee;
+}
+
+body {
+	color: var(--font-color);
+	background-color: var(--background-color);
+	margin: 70px 0 0 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/*height: 80vh;*/
+	font-family: sans-serif;
+	overflow: hidden;
+	user-select: none;
+	/* Disable text selection */
+	-webkit-touch-callout: none;
+	/* Disable long-press menu */
+	-webkit-user-select: none;
+	/* Disable text selection */
+	-webkit-tap-highlight-color: transparent;
+	/* Remove tap highlight */
+}
+
+button {
+	color: var(--font-color);
+	background-color: var(--background-color);
+	display: inline-block;
+	margin: 2px 2px;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 8px;
+	border: 1px solid var(--font-color-light);
+	padding: 4px;
+}
+
+select {
+	background-color: var(--background-color);
+	color: var(--font-color);
+	margin: 0px 8px;
+	border-radius: 4px;
+	padding: 4px 6px;
+	font-size: 16px;
+	border: 1px solid var(--font-color-light);
+}
+
+span.butt {
+	color: var(--font-color);
+	display: inline-block;
+	margin: 2px 2px;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: transform 0.2s;
+}
+
+span.butt:hover {
+	transform: scale(1.1);
+}
+
+#demo-container {
+	color: var(--font-color);
+	margin-bottom: 5px;
+	width: 360px;
+	position: relative;
+	text-align: center;
+	font-family: sans-serif;
+	height: 5.6em;
+	margin: 10px auto;
+}
+
+#demo-container span {
+	display: block;
+	line-height: 1.2;
+}
+
+#glyphName {
+	font-family: "Google Sans Code", monospace;
+	color: #aaa
+}
+
+#demo-container #charSeq {
+	font-size: 2.6em;
+	line-height: 1;
+	margin: 10px auto 10px auto;
+	width: 1em;
+	font-family: "Noto Sans JP", sans-serif;
+	border: 1px solid #aaa;
+}
+
+#demo-container #charSeq.vert {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	font-feature-settings: "vert"
+}
+
+#prevButton {
+	font-size: 3.2em;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 0;
+	background: transparent;
+}
+
+#nextButton {
+	font-size: 3.2em;
+	position: absolute;
+	right: 0;
+	top: 0;
+	border: 0;
+	background: transparent;
+}
+
+#canvas-container {
+	position: relative;
+	width: 360px;
+	height: 360px;
+	border: 1px solid #888;
+	margin: 10px;
+	background-color: #fff;
+}
+
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 360px;
+	height: 360px;
+	touch-action: none;
+}
+
+@media screen and (max-height: 750px),
+screen and (max-width: 380px) {
+	#canvas-container {
+		width: 300px;
+		height: 300px
+	}
+
+	canvas {
+		width: 300px;
+		height: 300px;
+		touch-action: none;
+	}
+}
+
+.smallmode {
+	width: 100px !important;
+	height: 100px !important
+}
+
+.smallmode canvas {
+	width: 100px;
+	height: 100px;
+	touch-action: none;
+}
+
+#gridCanvas {
+	z-index: 0;
+}
+
+/* Grid background stays underneath */
+#drawingCanvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+
+#slider-container {
+	margin: 10px 10px;
+	font-family: sans-serif;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+#slider-container .use {
+	background-color: #ffc;
+}
+
+#slider-container .off {
+	background-color: #eee;
+}
+
+#slider-container .on {
+	background-color: #ffc;
+}
+
+#lineWidthSlider {
+	margin-left: 15px;
+	width: 120px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#slider-container #lineWidthValue {
+	display: inline-block;
+	width: 1.2em;
+	text-align: right;
+}
+
+#pressureButton {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	font-weight: bold;
+	margin: 2px 2px;
+	padding: 4px 8px;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #777;
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: var(--background-color-light);
+}
+
+#button-container {
+	display: flex;
+	width: 320px;
+	gap: 10px;
+	justify-content: space-between
+}
+
+#button-container span.butt {
+	padding: 0;
+	border: 0;
+	font-size: 32px;
+	line-height: 1.1;
+}
+
+#list-container {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	justify-content: center;
+	padding: 10px;
+	text-align: center;
+	z-index: 1;
+}
+
+#navi-container {
+	display: flex;
+	gap: 10px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	justify-content: center;
+	padding: 10px;
+}
+
+#navi-container #spanDoneCount {
+	color: var(--font-color-light);
+	width: 2em;
+	text-align: center;
+	align-self: center;
+}
+
+#progress-container {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	z-index: 1000;
+}
+
+#progress-bar {
+	width: 80%;
+	height: 20px;
+	display: block;
+	margin: 0 auto;
+}
+
+.dialog {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 90%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(10px);
+	color: #fff;
+	z-index: 999;
+	text-align: left;
+	align-content: center;
+	padding: 0 5%
+}
+
+.dialog h2 {
+	margin-top: 1em
+}
+
+.dialog h3 {
+	display: block;
+	font-size: 1.2em;
+}
+
+.dialog a {
+	color: #ff0 !important;
+	text-decoration: underline;
+}
+
+.dialog input[type="text"] {
+	padding: 3px;
+	font-size: 1.2em;
+}
+
+.dialog input[type="file"] {
+	display: inline-block;
+	margin: 2px 2px;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.dialog input[type="range"] {
+	width: 80%;
+	vertical-align: middle;
+}
+
+.dialog input[type="checkbox"] {
+	width: 1.5em;
+	height: 1.5em;
+	vertical-align: middle;
+	border: none;
+}
+
+.dialog .note {
+	display: block;
+	color: #ccc
+}
+
+.close {
+	position: absolute;
+	display: block;
+	right: 20px;
+	top: 15px;
+	font: normal 3em/1 sans-serif;
+	color: red;
+	transition: transform 0.1s;
+}
+
+.close:hover {
+	transform: scale(1.2);
+}
+
+.dialog .dummy {
+	display: block;
+	clear: both;
+	height: 3em
+}
+
+.dialog-body {
+	height: 100%;
+	overflow: scroll;
+	max-width: 720px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#listup-body svg {
+	display: block;
+	background-color: #fff;
+	border-radius: 4px;
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 5px
+}
+
+#listup-body span {
+	display: block;
+	background-color: #000;
+	color: #ddd;
+	width: 50px;
+	height: 50px;
+	float: left;
+	line-height: 50px;
+	text-align: center;
+	font-size: 2em;
+	margin: 5px;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+#listup-body span.vert {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	font-feature-settings: "vert"
+}
+
+#hintContent {
+	padding: 0 1.2em
+}
+
+#hintContent li {
+	margin: 10px 0;
+	line-height: 1.6;
+}
+
+.setting {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: space-between;
+	align-items: center;
+	text-align: left;
+	transition: background 0.2s;
+}
+
+.setting:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+#settings-title {
+	padding-bottom: 1em;
+	border-bottom: 1px solid #fff;
+	align-self: center;
+}
+
+#fontNameEng,
+#fontNameCJK {
+	text-align: right;
+	background: none;
+	color: white;
+	border: none;
+	border-bottom: 1px solid #fff;
+	transition: border-bottom 0.2s;
+}
+
+#fontNameEng {
+	font-family: "Google Sans Code", monospace, sans-serif;
+}
+
+#fontNameCJK {
+	font-family: "Yomogi", sans-serif;
+}
+
+#fontNameEng:hover,
+#fontNameCJK:hover {
+	border-bottom: 2px solid #fff;
+}
+
+#smallModeCheck,
+#noFixedWidthFlag,
+#penAngleMode,
+#pressureDrawingEnabled {
+	width: 1.5em;
+	height: 1.5em;
+	vertical-align: middle;
+	border: none;
+	transition: transform 0.2s;
+}
+
+#smallModeCheck:hover,
+#noFixedWidthFlag:hover,
+#penAngleMode:hover,
+#pressureDrawingEnabled:hover {
+	transform: scale(1.2);
+}
+
+#clearAllButton,
+#exportEventsButton {
+	border: none;
+	color: white;
+	background: none;
+	border: 1px solid #fff;
+	padding: 0.2em 0.5em;
+	transition: background 0.2s, color 0.2s;
+}
+
+#clearAllButton:hover,
+#exportEventsButton:hover {
+	background: #fff;
+	color: #000;
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--font-color: #fff;
+		--font-color-light: #ccc;
+		--background-color: #000;
+		--background-color-light: #333;
+	}
+}
+
+#downloadFontButton,
+#exportDataButton {
+	font-family: "Google Sans Code", "Yomogi", monospace, sans-serif;
+	width: 100%;
+	margin: 0.5em 0.5em;
+	padding: 0.5em 1em;
+	background: none;
+	border: 1px solid #fff;
+	color: #fff;
+	transition: background 0.2s, color 0.2s;
+}
+
+#downloadFontButton:hover,
+#exportDataButton:hover {
+	background: #fff;
+	color: #000;
+}
+
+.download-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#listSelect {
+	align-items: center;
+	text-align: center;
+}

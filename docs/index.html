@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>FontWrite</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
+	</style>
+</head>
+
+<body lang="ja">
+	<div id="list-container">
+		<select id="listSelect"></select>
+		<span class="butt" id="canvasListButton">👓</span>
+	</div>
+
+	<div id="demo-container">
+		<span id="glyphName"></span>
+		<span id="charSeq"></span>
+		<span id="glyphNote"></span>
+		<span class="butt" id="prevButton">←</span>
+		<span class="butt" id="nextButton">→</span>
+	</div>
+
+	<div id="canvas-container">
+		<canvas id="gridCanvas" width="500" height="500"></canvas>
+		<canvas id="drawingCanvas" width="500" height="500"></canvas>
+	</div>
+
+	<div id="slider-container">
+		<div id="pressureButton" class="off">太さ</div>
+		<input id="lineWidthSlider" type="range" min="2" max="36" value="12" />
+		<label for="lineWidthSlider"><span id="lineWidthValue">12</span></label>
+	</div>
+
+	<div id="button-container">
+		<span class="butt" id="clearButton">🚮</span>
+		<span class="butt" id="moveLeftButton">⬅️</span>
+		<span class="butt" id="moveRightButton">➡️</span>
+		<span class="butt" id="moveUpButton">⬆️</span>
+		<span class="butt" id="moveDownButton">⬇️</span>
+		<span class="butt" id="undoButton">↩️</span>
+	</div>
+
+	<div id="navi-container">
+		<span class="butt" id="settingButton">⚙️</span>
+		<span id="spanDoneCount">-</span>
+		<span class="butt" id="downloadButton">💾</span>
+	</div>
+
+	<div id="progress-container">
+		<progress id="progress-bar" value="0" max="100"></progress>
+		<span id="progress-text">0%</span>
+	</div>
+
+	<div id="listup-container" class="dialog">
+		<div class="dialog-body">
+			<span id="closeListupButton" class="close">×</span>
+			<h2>グリフ一覧</h2>
+			<div id="listup-body"></div>
+		</div>
+	</div>
+
+	<div id="settings-container" class="dialog">
+		<div class="dialog-body">
+			<span id="closeSettingsButton" class="close">×</span>
+			<h2 id="settings-title">フォント設定</h2>
+
+			<div class="setting">
+				<h3>フォント名（英語）</h3>
+				<input id="fontNameEng" type="text" placeholder="半角英数字で入力してください" maxlength="24" />
+			</div>
+
+			<div class="setting">
+				<h3>フォント名（日本語）</h3>
+				<input id="fontNameCJK" type="text" placeholder="日本語フォント名を入力してください" maxlength="10" />
+			</div>
+
+			<div class="setting">
+				<h3>小さく書きたい！</h3>
+				<input id="smallModeCheck" type="checkbox" />
+			</div>
+
+			<div class="setting">
+				<h3>全角文字もプロポーショナル幅</h3>
+				<input id="noFixedWidthFlag" type="checkbox" />
+			</div>
+
+			<div class="setting">
+				<h3>ペンの傾き角を有効にする</h3>
+				<input id="penAngleMode" type="checkbox" />
+			</div>
+
+			<div class="setting">
+				<h3>旧筆圧モードの有効化（非推奨）</h3>
+				<input id="pressureDrawingEnabled" type="checkbox" checked />
+			</div>
+
+			<div id="div-backup">
+				<div class="setting">
+					<h3>フォントデータを削除する</h3>
+					<button id="clearAllButton">全てのデータを削除（復元不能！）</button>
+				</div>
+				<div class="setting">
+					<h3>システムデバッグ用機能</h3>
+					<button id="exportEventsButton">システムイベントエクスポート</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="download-container" class="dialog">
+		<div class="dialog-body">
+			<span id="closeDownloadButton" class="close">×</span>
+			<h2 id="settings-title">共有する</h2>
+			<div class="download-actions">
+				<button id="downloadFontButton">.otf に変換</button>
+				<button id="exportDataButton">バックアップデータの保存</button>
+			</div>
+
+			<h3>バックアップデータの読み込み</h3>
+			<input type="file" id="importDataFile" accept=".txt" />
+
+			<p class="dummy"></p>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://opentype.js.org/dist/opentype.js"></script>
+	<script src="potrace.js"></script>
+	<script>
+		const fdrawer = {
+			dbName: 'FontDrawerDBja',
+			fontNameCJK: '私の手書きフォント',
+			fontLang: 'ja',
+			codePage: 0x00020001,
+			findMsg: '探したい文字をご入力ください：',
+			notFound: '該当グリフが見つかりません。',
+			confirmAdd: 'ユーザー文字リストに追加しますか？',
+			noDataToExport: 'データがありません。',
+			importConfirm: '編集中のデータが削除されます。データの読み込みしますか？',
+			importDone: '読み込みしました',
+			clearConfirm: '編集中のデータを破棄しますか？',
+			clearDone: '削除しました',
+			welcomeTitle: 'ようこそ',
+			settingsTitle: 'フォント設定',
+			inAppNotice: 'アプリの組み込みブラウザを利用しているようです。\nシステムブラウザで開くことがおすすめです。',
+			customList: 'ユーザー文字リスト',
+		};
+	</script>
+
+	<script src="pressure-drawing.js"></script>
+	<script src="jglyphlist.js"></script>
+	<script src="fontdrawer.js"></script>
+</body>
+
+</html>
