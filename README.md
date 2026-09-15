@@ -31,14 +31,16 @@
   - `glist/`: Tools for generating character lists.
 
 ## Notes
-- **Font Rights**:
-  - The ownership of the generated font files belongs to the user, and they can be freely published or used commercially. Also, please consider making a donation (laughs).
-- **Technical Limitations**:
-  - The generated font files might not fully conform to the CID format, and some Adobe applications may not correctly recognize them as CJK fonts.
-- **Recommendations**:
-  - Regularly back up your incomplete font files to prevent data loss.
-- **Open Source License for Source Code**:
-  - The source code for this project is open-source, but since the referenced projects have different license terms, please evaluate and comply with the respective licensing regulations when using them.
+> [!TIP]
+> Regularly back up your incomplete font files to prevent data loss.
+
+> [!WARNING]
+> The generated font files might not fully conform to the CID format, and some Adobe applications may not correctly recognize them as CJK fonts.
+
+> [!CAUTION]
+> **Open Source License for Source Code**
+> 
+> The source code for this project is open-source, but since the referenced projects have different license terms, please evaluate and comply with the respective licensing regulations when using them.
 
 ## Contributors
 - **Fork**: [@sohiearth](https://github.com/sohiearth)
