@@ -853,10 +853,48 @@ $(document).ready(async function () {
 		};
 	}
 
+	async function scaleGlyph(scaleFactor) {
+		const savedCanvas = await loadFromDB('g_' + nowGlyph);
+		if (!savedCanvas) return;
+		undoStack.push(canvas.toDataURL());
+
+		const img = new Image();
+		img.src = savedCanvas;
+		img.onload = function () {
+			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			let minX = canvas.width;
+			let minY = canvas.height;
+			let maxX = -1;
+			let maxY = -1;
+			for (let y = 0; y < canvas.height; y++) {
+				for (let x = 0; x < canvas.width; x++) {
+					if (imageData.data[(y * canvas.width + x) * 4 + 3] > 0) {
+						minX = Math.min(minX, x);
+						minY = Math.min(minY, y);
+						maxX = Math.max(maxX, x);
+						maxY = Math.max(maxY, y);
+					}
+				}
+			}
+			if (maxX < 0) return;
+			const centerX = (minX + maxX + 1) / 2;
+			const centerY = (minY + maxY + 1) / 2;
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.save();
+			ctx.translate(centerX, centerY);
+			ctx.scale(scaleFactor, scaleFactor);
+			ctx.drawImage(img, -centerX, -centerY);
+			ctx.restore();
+			saveToLocalDB();
+		};
+	}
+
 	$('#moveLeftButton').on('click', function () { moveGlyph(-10, 0); }); // Move left by 10px
 	$('#moveRightButton').on('click', function () { moveGlyph(10, 0); }); // Move right by 10px
 	$('#moveUpButton').on('click', function () { moveGlyph(0, -10); }); // Move up by 10px
 	$('#moveDownButton').on('click', function () { moveGlyph(0, 10); }); // Move down by 10px
+	$('#scaleDownButton').on('click', function () { scaleGlyph(0.9); });
+	$('#scaleUpButton').on('click', function () { scaleGlyph(1.1); });
 
 	// Keyboard arrow support
 	$(document).on('keydown', function (event) {
@@ -872,6 +910,12 @@ $(document).ready(async function () {
 				break;
 			case 'ArrowDown': // Down arrow
 				moveGlyph(0, 10);
+				break;
+			case '-':
+				scaleGlyph(0.9);
+				break;
+			case '+':
+				scaleGlyph(1.1);
 				break;
 			case 'z': // Z key - undo
 				$('#undoButton').trigger('click');

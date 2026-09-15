@@ -222,9 +222,10 @@ screen and (max-width: 380px) {
 
 #button-container {
 	display: flex;
-	width: 320px;
-	gap: 10px;
-	justify-content: space-between
+	width: min(320px, calc(100vw - 20px));
+	gap: 6px;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 #button-container span.butt {
